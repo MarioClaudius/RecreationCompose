@@ -2,11 +2,17 @@ package com.example.recreationcompose.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import com.example.recreationcompose.R
 
 // Set of Material typography styles to start with
+val futuraFont = FontFamily(
+    Font(R.font.futura_bold)
+)
+
 val Typography = Typography(
     bodyLarge = TextStyle(
         fontFamily = FontFamily.Default,
@@ -14,6 +20,10 @@ val Typography = Typography(
         fontSize = 16.sp,
         lineHeight = 24.sp,
         letterSpacing = 0.5.sp
+    ),
+    titleMedium = TextStyle(
+        fontFamily = futuraFont,
+        fontWeight = FontWeight.Bold,
     )
     /* Other default text styles to override
     titleLarge = TextStyle(
