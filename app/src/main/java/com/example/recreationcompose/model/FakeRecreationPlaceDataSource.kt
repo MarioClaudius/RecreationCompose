@@ -48,6 +48,7 @@ object FakeRecreationPlaceDataSource {
             for(pos in names.indices){
                 list.add(
                     RecreationPlace(
+                        id = pos + 1L,
                         name = names[pos],
                         detail = details[pos],
                         image = images[pos]

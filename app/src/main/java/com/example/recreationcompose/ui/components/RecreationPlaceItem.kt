@@ -36,7 +36,9 @@ import com.example.recreationcompose.ui.theme.futuraFont
 
 @Composable
 fun RecreationPlaceItem(
-    place: RecreationPlace,
+    name: String,
+    image: Int,
+    description: String,
     modifier: Modifier = Modifier
 ) {
     Card(
@@ -54,7 +56,7 @@ fun RecreationPlaceItem(
     ) {
         Row {
             Image(
-                painter = painterResource(id = place.image),
+                painter = painterResource(id = image),
                 contentDescription = null,
                 contentScale = ContentScale.FillBounds,
                 modifier = Modifier
@@ -66,13 +68,13 @@ fun RecreationPlaceItem(
                 modifier = Modifier.padding(8.dp).align(Alignment.CenterVertically)
             ) {
                 Text(
-                    text = place.name,
+                    text = name,
                     fontFamily = futuraFont,
                     fontSize = 20.sp,
                     modifier = Modifier.padding(bottom = 5.dp)
                 )
                 Text(
-                    text = place.detail,
+                    text = description,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
                     fontSize = 10.sp,
@@ -88,7 +90,9 @@ fun RecreationPlaceItem(
 fun RecreationItemPreview() {
     RecreationComposeTheme {
         RecreationPlaceItem(
-            place = FakeRecreationPlaceDataSource.dummyRecreationPlaces[0],
+            name = FakeRecreationPlaceDataSource.dummyRecreationPlaces[0].name,
+            image = FakeRecreationPlaceDataSource.dummyRecreationPlaces[0].image,
+            description = FakeRecreationPlaceDataSource.dummyRecreationPlaces[0].detail,
             modifier = Modifier.padding(horizontal = 10.dp, vertical = 8.dp)
         )
     }
