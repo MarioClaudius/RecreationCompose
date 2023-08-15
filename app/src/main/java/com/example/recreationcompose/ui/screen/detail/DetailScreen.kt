@@ -15,6 +15,7 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -26,15 +27,42 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.recreationcompose.R
+import com.example.recreationcompose.di.Injection
 import com.example.recreationcompose.model.FakeRecreationPlaceDataSource
+import com.example.recreationcompose.ui.ViewModelFactory
+import com.example.recreationcompose.ui.common.UiState
 import com.example.recreationcompose.ui.theme.RecreationComposeTheme
 import com.example.recreationcompose.ui.theme.futuraFont
 
 @Composable
 fun DetailScreen(
-    recreationId : Long
+    recreationId : Long,
+    viewModel: DetailViewModel = viewModel(
+        factory = ViewModelFactory(
+            Injection.provideRepository()
+        )
+    ),
+    navigateBack: () -> Unit,
 ) {
+    viewModel.uiState.collectAsState(initial = UiState.Loading).value.let { uiState ->
+        when(uiState) {
+            is UiState.Loading -> {
+                viewModel.getRecreationPlaceById(recreationId)
+            }
+            is UiState.Success -> {
+                val data = uiState.data
+                DetailContent(
+                    name = data.name,
+                    description = data.detail,
+                    image = data.image,
+                    onBackClick = navigateBack
+                )
+            }
+            is UiState.Error -> {}
+        }
+    }
 }
 
 @Composable

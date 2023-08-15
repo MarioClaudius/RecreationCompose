@@ -44,7 +44,6 @@ fun RecreationPlaceItem(
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .clickable { }
             .shadow(
                 elevation = 3.dp,
                 shape = RoundedCornerShape(8.dp)

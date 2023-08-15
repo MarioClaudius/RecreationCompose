@@ -3,6 +3,7 @@ package com.example.recreationcompose.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.recreationcompose.data.RecreationPlaceRepository
+import com.example.recreationcompose.ui.screen.detail.DetailViewModel
 import com.example.recreationcompose.ui.screen.home.HomeViewModel
 
 class ViewModelFactory(private val repository: RecreationPlaceRepository) :
@@ -12,6 +13,8 @@ class ViewModelFactory(private val repository: RecreationPlaceRepository) :
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
             return HomeViewModel(repository) as T
+        } else if (modelClass.isAssignableFrom(DetailViewModel::class.java)) {
+            return DetailViewModel(repository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
     }

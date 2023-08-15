@@ -17,13 +17,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.recreationcompose.ui.navigation.NavigationItem
 import com.example.recreationcompose.ui.navigation.Screen
 import com.example.recreationcompose.ui.screen.about.AboutScreen
+import com.example.recreationcompose.ui.screen.detail.DetailScreen
 import com.example.recreationcompose.ui.screen.home.HomeScreen
 
 @Composable
@@ -51,10 +54,24 @@ fun RecreationApp(
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(Screen.Home.route) {
-                HomeScreen()
+                HomeScreen(
+                    navigateToDetail = { recreationId ->
+                        navController.navigate(Screen.DetailRecreation.createRoute(recreationId))
+                    }
+                )
             }
             composable(Screen.About.route) {
                 AboutScreen()
+            }
+            composable(
+                route = Screen.DetailRecreation.route,
+                arguments = listOf(navArgument("recreationId") { type = NavType.LongType }),
+            ) {
+                val recreationId = it.arguments?.getLong("recreationId") ?: -1L
+                DetailScreen(
+                    recreationId = recreationId,
+                    navigateBack = { navController.navigateUp() }
+                )
             }
         }
     }

@@ -9,6 +9,12 @@ class RecreationPlaceRepository {
 
     fun getAllRecreationPlaces(): Flow<List<RecreationPlace>> = flowOf(FakeRecreationPlaceDataSource.dummyRecreationPlaces)
 
+    fun getRecreationPlaceById(recreationId: Long) : RecreationPlace {
+        return FakeRecreationPlaceDataSource.dummyRecreationPlaces.first {
+            it.id == recreationId
+        }
+    }
+
     companion object {
         @Volatile
         private var instance: RecreationPlaceRepository? = null

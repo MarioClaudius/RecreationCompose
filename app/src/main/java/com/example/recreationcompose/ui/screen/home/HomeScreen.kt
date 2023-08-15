@@ -1,5 +1,6 @@
 package com.example.recreationcompose.ui.screen.home
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
@@ -17,7 +18,8 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = viewModel(
         factory = ViewModelFactory(Injection.provideRepository())
-    )
+    ),
+    navigateToDetail: (Long) -> Unit,
 ) {
     viewModel.uiState.collectAsState(initial = UiState.Loading).value.let { uiState ->
         when(uiState) {
@@ -27,7 +29,8 @@ fun HomeScreen(
             is UiState.Success -> {
                 HomeContent(
                     places = uiState.data,
-                    modifier = modifier
+                    modifier = modifier,
+                    navigateToDetail = navigateToDetail
                 )
             }
             is UiState.Error -> {}
@@ -38,14 +41,18 @@ fun HomeScreen(
 @Composable
 fun HomeContent(
     places: List<RecreationPlace>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    navigateToDetail: (Long) -> Unit,
 ) {
     LazyColumn(modifier = modifier) {
         items(places, key = { it.id }) { place ->
             RecreationPlaceItem(
                 name = place.name,
                 image = place.image,
-                description = place.detail
+                description = place.detail,
+                modifier = Modifier.clickable {
+                    navigateToDetail(place.id)
+                }
             )
         }
     }
