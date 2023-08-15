@@ -1,9 +1,12 @@
 package com.example.recreationcompose.ui.screen.about
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -26,7 +29,11 @@ import com.example.recreationcompose.ui.theme.futuraFont
 @Composable
 fun AboutScreen(modifier: Modifier = Modifier) {
     Column(
-        modifier = modifier,
+        modifier = modifier
+            .fillMaxWidth()
+            .fillMaxHeight()
+            .background(Color.Cyan),
+        horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
         Image(
@@ -60,11 +67,6 @@ fun AboutScreen(modifier: Modifier = Modifier) {
 @Composable
 fun AboutScreenPreview() {
     RecreationComposeTheme {
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = Color.Cyan
-        ) {
-            AboutScreen()
-        }
+        AboutScreen()
     }
 }

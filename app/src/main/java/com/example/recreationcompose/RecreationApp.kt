@@ -1,5 +1,6 @@
 package com.example.recreationcompose
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
@@ -12,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -21,6 +23,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.recreationcompose.ui.navigation.NavigationItem
 import com.example.recreationcompose.ui.navigation.Screen
+import com.example.recreationcompose.ui.screen.about.AboutScreen
 import com.example.recreationcompose.ui.screen.home.HomeScreen
 
 @Composable
@@ -34,10 +37,13 @@ fun RecreationApp(
     Scaffold(
         bottomBar = {
             if (currentRoute != Screen.DetailRecreation.route) {
-                BottomBar(navController = navController)
+                BottomBar(
+                    navController = navController,
+                    modifier = Modifier.background(Color.Blue)
+                )
             }
         },
-        modifier = modifier
+        modifier = modifier.background(Color.Blue)
     ) { innerPadding ->
         NavHost(
             navController = navController,
@@ -48,7 +54,7 @@ fun RecreationApp(
                 HomeScreen()
             }
             composable(Screen.About.route) {
-
+                AboutScreen()
             }
         }
     }
@@ -90,7 +96,7 @@ private fun BottomBar(
                         restoreState = true
                         launchSingleTop = true
                     }
-                }
+                },
             )
         }
     }
