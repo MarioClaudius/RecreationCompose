@@ -2,4 +2,7 @@
     <string name="app_name">RecreationCompose</string>
     <string name="menu_home">Home</string>
     <string name="menu_about_me">About Me</string>
+    <string name="creator_profile">Creator Profile</string>
+    <string name="creator_name">Mario Claudius</string>
+    <string name="creator_email">mcmario7901@gmail.com</string>
 </resources>
